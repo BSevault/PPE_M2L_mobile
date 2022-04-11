@@ -13,39 +13,53 @@ class _FormLoginState extends State<FormLogin> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Email',
+      child: Container(
+        margin: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                "Entrée votre login et password pour accèder à votre compte M2L",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return "Il manque votre email";
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: 'Password',
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'Email',
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return "Il manque votre email";
+                }
+                return null;
+              },
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return "Il manque votre mot de passe";
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              onPressed: () => {if (_formKey.currentState!.validate()) {}},
-              child: const Text("Login"),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Password',
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return "Il manque votre mot de passe";
+                }
+                return null;
+              },
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                onPressed: () => {if (_formKey.currentState!.validate()) {}},
+                child: const Text("Login"),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

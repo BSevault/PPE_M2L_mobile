@@ -1,3 +1,6 @@
+// tuto au gout du jour:
+// https://www.geeksforgeeks.org/http-get-response-in-flutter/
+
 import 'dart:ffi';
 
 import 'package:http/http.dart' as http;

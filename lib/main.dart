@@ -32,34 +32,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-//Applying get request.
-
-  // Future<List<User>> getRequest() async {
-  //   //replace your restFull API here.
-  //   String url = "http://10.0.2.2:3001/users";
-
-  //   Map<String, String> _headers = {
-  //     "Content-Type": "application/json; charset=UTF-8",
-  //   };
-
-  //   final response = await http.get(Uri.parse(url), headers: _headers);
-
-  //   var responseData = json.decode(response.body)["success"];
-
-  //   //Creating a list to store input data;
-  //   List<User> users = [];
-  //   for (var singleUser in responseData) {
-  //     User user = User(
-  //       id: singleUser["id"],
-  //       nom: singleUser["nom"],
-  //     );
-
-  //     //Adding user to the list.
-  //     users.add(user);
-  //   }
-  //   return users;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

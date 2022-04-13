@@ -20,6 +20,7 @@ abstract class Requester {
       return responseData;
     } catch (e) {
       print(e);
+      return (e);
     }
   }
 }

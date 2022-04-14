@@ -54,7 +54,10 @@ class _FormLoginState extends State<FormLogin> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
-                onPressed: () => {if (_formKey.currentState!.validate()) {}},
+                onPressed: () => {
+                  if (_formKey.currentState!.validate())
+                    {Navigator.pushNamed(context, '/participant')}
+                },
                 child: const Text("Login"),
               ),
             ),

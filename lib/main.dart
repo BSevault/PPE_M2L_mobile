@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './home/home.dart';
+import './home/test.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF068D9D),
       ),
       home: const MyHomePage(title: 'M2L - Gestion des réunions'),
+      routes: <String, WidgetBuilder>{
+        '/participant': (BuildContext context) => const Test(),
+      },
     );
   }
 }

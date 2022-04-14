@@ -13,8 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
-        primaryColor: const Color(0xFF068D9D),
+        colorSchemeSeed: const Color(0xFF068D9D),
+        // primarySwatch: Colors.lightGreen,
+        // primaryColor: const Color(0xFF068D9D),
       ),
       home: const MyHomePage(title: 'M2L - Gestion des réunions'),
       routes: <String, WidgetBuilder>{

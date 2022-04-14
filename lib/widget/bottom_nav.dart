@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:mobile/home/test.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -40,7 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.lightGreen,
+      selectedItemColor: const Color(0xFF068D9D),
       onTap: _onItemTapped,
     );
   }

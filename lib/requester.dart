@@ -2,8 +2,6 @@
 // https://www.geeksforgeeks.org/http-get-response-in-flutter/
 // https://stackoverflow.com/questions/54849725/bad-state-cannot-set-the-body-fields-of-a-request-with-content-type-applicatio
 
-import 'dart:ffi';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

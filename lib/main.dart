@@ -4,18 +4,22 @@ import 'package:http/http.dart' as http;
 
 import 'requester.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -26,13 +30,13 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Http Get Request."),
-          leading: Icon(
+          title: const Text("Http Get Request."),
+          leading: const Icon(
             Icons.get_app,
           ),
         ),
         body: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: FutureBuilder(
             // future: Requester.getRequest('/flutter/1/reservations'),
             future: Requester.getRequest('/flutter/1/reservations/history'),
@@ -40,10 +44,8 @@ class _HomePageState extends State<HomePage> {
             //     {"email": "test1@email.com", "password": "test1"}),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
-                return Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
               } else {
                 // var users = snapshot.data[0];
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     subtitle: Text(users[index]['is_covid'] == 1
                         ? 'Is covid'
                         : 'Not covid'),
-                    contentPadding: EdgeInsets.only(bottom: 20.0),
+                    contentPadding: const EdgeInsets.only(bottom: 20.0),
                   ),
                 );
               }

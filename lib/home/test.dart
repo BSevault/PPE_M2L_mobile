@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
+import '../requester.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Test extends StatefulWidget {
+  const Test({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _TestState createState() => _TestState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

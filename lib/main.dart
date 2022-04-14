@@ -15,17 +15,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//Creating a class user to store the data;
-class User {
-  final int id;
-  final String nom;
-
-  User({
-    required this.id,
-    required this.nom,
-  });
-}
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -45,8 +34,9 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           padding: EdgeInsets.all(16.0),
           child: FutureBuilder(
-            future: Requester.getRequest('/users'),
-            // future: BaseAPI.api(),
+            // future: Requester.getRequest('/flutter/1/reservations'),
+            future: Requester.postRequest('/flutter/login',
+                {"email": "test1@email.com", "password": "test1"}),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -55,28 +45,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               } else {
-                List<User> users = [];
-                for (var singleUser in snapshot.data) {
-                  User user = User(
-                    id: singleUser["id"],
-                    nom: singleUser["nom"],
-                  );
-
-                  //Adding user to the list.
-                  users.add(user);
-                }
+                // var users = snapshot.data[0];
+                var users = [snapshot.data];
+                print(users);
                 return ListView.builder(
                   itemCount: users.length,
                   itemBuilder: (ctx, index) => ListTile(
-                    title: Text(users[index].nom),
-                    subtitle: Text(users[index].id.toString()),
+                    title: Text(users[index]['nom']),
+                    subtitle: Text(users[index]['id'].toString()),
                     contentPadding: EdgeInsets.only(bottom: 20.0),
-                    // return ListView.builder(
-                    //   itemCount: snapshot.data.length,
-                    //   itemBuilder: (ctx, index) => ListTile(
-                    //     title: Text(snapshot.data[index].nom),
-                    //     subtitle: Text(snapshot.data[index].id.toString()),
-                    //     contentPadding: EdgeInsets.only(bottom: 20.0),
                   ),
                 );
               }

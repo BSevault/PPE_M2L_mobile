@@ -35,8 +35,9 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(16.0),
           child: FutureBuilder(
             // future: Requester.getRequest('/flutter/1/reservations'),
-            future: Requester.postRequest('/flutter/login',
-                {"email": "test1@email.com", "password": "test1"}),
+            future: Requester.getRequest('/flutter/1/reservations/history'),
+            // future: Requester.postRequest('/flutter/login',
+            //     {"email": "test1@email.com", "password": "test1"}),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -46,13 +47,15 @@ class _HomePageState extends State<HomePage> {
                 );
               } else {
                 // var users = snapshot.data[0];
-                var users = [snapshot.data];
+                var users = snapshot.data[0];
                 print(users);
                 return ListView.builder(
                   itemCount: users.length,
                   itemBuilder: (ctx, index) => ListTile(
                     title: Text(users[index]['nom']),
-                    subtitle: Text(users[index]['id'].toString()),
+                    subtitle: Text(users[index]['is_covid'] == 1
+                        ? 'Is covid'
+                        : 'Not covid'),
                     contentPadding: EdgeInsets.only(bottom: 20.0),
                   ),
                 );

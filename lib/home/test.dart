@@ -7,12 +7,8 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: const Text("C'est le test"),
-      ),
+    return Scaffold(
+      body: const Text("C'est le test"),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/home/template.dart';
 import './home/home.dart';
 import './home/test.dart';
 
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'M2L - Gestion des réunions'),
       routes: <String, WidgetBuilder>{
         '/participant': (BuildContext context) => const Test(),
+        '/services': (BuildContext context) =>
+            const Template(title: 'Service Page'),
+        '/covid': (BuildContext context) => const Template(title: 'Covid Page'),
       },
     );
   }

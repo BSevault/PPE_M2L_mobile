@@ -14,8 +14,30 @@ class _BottomNavBarState extends State<BottomNavBar> {
     setState(() {
       _selectedIndex = index;
     });
-    if (index == 0) {
-      Navigator.pushNamed(context, '/participant');
+    // if (index == 0) {
+    //   Navigator.pushNamed(context, '/template');
+    // }
+    switch (index) {
+      case 0:
+        {
+          Navigator.pushNamed(context, '/participant');
+          break;
+        }
+      case 1:
+        {
+          Navigator.pushNamed(context, '/services');
+          break;
+        }
+      case 2:
+        {
+          Navigator.pushNamed(context, '/covid');
+          break;
+        }
+      default:
+        {
+          Navigator.pushNamed(context, '/');
+          break;
+        }
     }
   }
 

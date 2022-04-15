@@ -32,6 +32,7 @@ class _TestState extends State<Test> {
                   child: CircularProgressIndicator(),
                 );
               } else {
+                /* The listTile accept a list, data for test must be a list */
                 var users = [snapshot.data];
                 // var users = snapshot.data[0];
                 print(users);

@@ -28,13 +28,9 @@ abstract class Requester {
   }
 
   static Future<dynamic> postRequest(String url, var reqBody) async {
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-    };
-
     try {
       final response = await http.post(Uri.parse(_base_url + url),
-          headers: requestHeaders, body: jsonEncode(reqBody));
+          headers: _headers, body: jsonEncode(reqBody));
       if (response.statusCode == 200) {
         return json.decode(response.body)["success"];
       } else {

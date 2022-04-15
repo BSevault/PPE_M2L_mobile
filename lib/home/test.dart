@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/widget/bottom_nav.dart';
 import '../requester.dart';
 
 class Test extends StatefulWidget {
@@ -50,6 +51,7 @@ class _TestState extends State<Test> {
             },
           ),
         ),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }

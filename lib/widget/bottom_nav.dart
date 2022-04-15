@@ -14,9 +14,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
     setState(() {
       _selectedIndex = index;
     });
-    // if (index == 0) {
-    //   Navigator.pushNamed(context, '/template');
-    // }
+
+    // 0, 1, 2, ... de gauche à droite sur la bottom navbar
+    // default '/' => homepage (login)
     switch (index) {
       case 0:
         {

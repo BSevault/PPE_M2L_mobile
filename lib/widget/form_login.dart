@@ -21,7 +21,7 @@ class _FormLoginState extends State<FormLogin> {
             const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                "Entrée votre login et password pour accèder à votre compte M2L",
+                "Entrez votre login et password pour accèder à votre compte M2L",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,

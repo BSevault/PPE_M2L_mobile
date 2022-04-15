@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:mobile/home/test.dart';
+import 'package:mobile/utils/requester.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
@@ -9,10 +13,18 @@ class FormLogin extends StatefulWidget {
 
 class _FormLoginState extends State<FormLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    String req;
+    Map body = {};
+
+    var pwd;
+    var email;
+
     return Form(
       key: _formKey,
+      onChanged: () => {Form.of(primaryFocus!.context!)!.save()},
       child: Container(
         margin: const EdgeInsets.all(20),
         child: Column(
@@ -21,7 +33,7 @@ class _FormLoginState extends State<FormLogin> {
             const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                "Entrez votre login et password pour accèder à votre compte M2L",
+                "Connexion à votre compte M2L",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -29,6 +41,11 @@ class _FormLoginState extends State<FormLogin> {
               ),
             ),
             TextFormField(
+              onChanged: (String value) {
+                setState(() {
+                  email = value;
+                });
+              },
               decoration: const InputDecoration(
                 hintText: 'Email',
               ),
@@ -40,6 +57,12 @@ class _FormLoginState extends State<FormLogin> {
               },
             ),
             TextFormField(
+              onChanged: (String value) {
+                setState(() {
+                  pwd = value;
+                });
+                // debugPrint(body.toString());
+              },
               obscureText: true,
               decoration: const InputDecoration(
                 hintText: 'Password',
@@ -54,11 +77,28 @@ class _FormLoginState extends State<FormLogin> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
-                onPressed: () => {
-                  if (_formKey.currentState!.validate())
-                    {Navigator.pushNamed(context, '/participant')}
-                },
                 child: const Text("Login"),
+                onPressed: () => {
+                  // if (_formKey.currentState!.validate())
+                  //   {
+                  req = jsonEncode(body),
+                  FutureBuilder(
+                    future: Requester.postRequest(
+                        "/flutter/login", {"email": email, "password": pwd}),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      print(jsonDecode(snapshot.data));
+                      if (snapshot.data == null) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return const Test();
+                      }
+                    },
+                  ),
+                  // }
+                },
               ),
             ),
           ],

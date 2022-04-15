@@ -24,7 +24,7 @@ class _TemplateState extends State<Template> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

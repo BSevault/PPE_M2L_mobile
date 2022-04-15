@@ -51,7 +51,7 @@ class _TestState extends State<Test> {
             },
           ),
         ),
-        bottomNavigationBar: const BottomNavBar(),
+        bottomNavigationBar: BottomNavBar(),
       ),
     );
   }

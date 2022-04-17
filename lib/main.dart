@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/home/page_reservations.dart';
 import 'package:mobile/home/template.dart';
 import './home/home.dart';
 import './home/test.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         '/covid': (BuildContext context) => const Template(
               title: 'Covid Page',
             ),
+        '/reservations': ((BuildContext context) => const Reservations(
+              title: 'Vos réservations',
+            )),
       },
     );
   }

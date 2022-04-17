@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../utils/requester.dart';
-import '../widget/bottom_nav.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);

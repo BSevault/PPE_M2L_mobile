@@ -3,8 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mobile/utils/requester.dart';
 
-import '../widget/bottom_nav.dart';
-
 // ignore: must_be_immutable
 class Reservations extends StatefulWidget {
   const Reservations({Key? key, required this.title}) : super(key: key);
@@ -30,36 +28,62 @@ class _ReservationsState extends State<Reservations> {
           return Scaffold(
             appBar: AppBar(
               title: Text(widget.title),
+              automaticallyImplyLeading: false,
             ),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ...(resa[0] as List).map((oneResa) {
-                    var dateResa = DateTime.parse(oneResa['date_resa']);
                     initializeDateFormatting('fr_FR', null);
-                    return Card(
-                      margin: const EdgeInsets.all(10),
-                      shadowColor: Colors.black,
-                      color: const Color.fromARGB(186, 254, 200, 22),
-                      elevation: 8,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
+                    // print(DateFormat.yMd('fr_FR').format(DateTime.now()));
+                    var dateResa = DateTime.parse(oneResa['date_resa'])
+                        .add(const Duration(days: 1));
+                    var dateSec = DateTime.now().add(const Duration(days: 2));
+
+                    ButtonStyle styleBtn;
+                    var onPressFct;
+                    Color colorCard;
+                    String textCard =
+                        'Salle ${oneResa['nom']} - ${DateFormat.yMd('fr_FR').format(dateResa)}';
+
+                    if (DateFormat.yMd('fr_FR').format(dateResa) ==
+                        (DateFormat.yMd('fr_FR').format(dateSec))) {
+                      styleBtn = TextButton.styleFrom(
                           maximumSize: const Size(double.infinity, 60),
                           backgroundColor:
                               const Color.fromARGB(186, 254, 200, 22),
                           primary: const Color(0xFF068D9D),
-                          textStyle: const TextStyle(fontSize: 20),
-                        ),
+                          textStyle: const TextStyle(fontSize: 20));
+
+                      onPressFct = () {
+                        Navigator.pushNamed(context, '/participant',
+                            arguments: {
+                              "idResa": oneResa['id'],
+                              "titre": textCard,
+                            });
+                      };
+                      colorCard = const Color.fromARGB(186, 254, 200, 22);
+                    } else {
+                      styleBtn = TextButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20));
+                      onPressFct = null;
+                      colorCard = const Color.fromARGB(185, 150, 141, 111);
+                    }
+
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      shadowColor: Colors.black,
+                      color: colorCard,
+                      elevation: 8,
+                      child: TextButton(
+                        onPressed: onPressFct,
+                        style: styleBtn,
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Salle ${oneResa['nom']} - ',
-                            ),
-                            Text(DateFormat.yMd('fr_FR').format(dateResa))
+                            Text(textCard),
                           ],
                         ),
                       ),
@@ -68,7 +92,6 @@ class _ReservationsState extends State<Reservations> {
                 ],
               ),
             ),
-            bottomNavigationBar: const BottomNavBar(),
           );
         } else {
           return const Center(

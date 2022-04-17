@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorSchemeSeed: const Color(0xFF068D9D),
-        // primarySwatch: Colors.lightGreen,
-        // primaryColor: const Color(0xFF068D9D),
       ),
       home: const MyHomePage(title: 'M2L - Gestion des réunions'),
       routes: <String, WidgetBuilder>{
-        '/participant': (BuildContext context) => const Test(),
+        '/participant': (BuildContext context) => const Template(
+              title: 'Gestion de réservations',
+            ),
         '/services': (BuildContext context) => const Template(
               title: 'Service Page',
             ),

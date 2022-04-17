@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:mobile/home/test.dart';
 import 'package:mobile/utils/requester.dart';
 
 class FormLogin extends StatefulWidget {
@@ -14,29 +11,19 @@ class FormLogin extends StatefulWidget {
 class _FormLoginState extends State<FormLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  static var pwd;
-  static var email;
+  late String pwd;
+  late String email;
   @override
   Widget build(BuildContext context) {
-    bool page = false;
-
     handleLogin() async {
       var _login = await Requester.postRequest(
           "/flutter/login", {"email": email, "password": pwd});
       Map<dynamic, dynamic> result = _login as Map<dynamic, dynamic>;
 
-      print(result);
-      print(result['id']);
-      // print(pwd);
       if (result.isNotEmpty) {
         Navigator.pushNamed(context, '/reservations',
             arguments: {"userId": result['id']});
-        // setState(() {
-        //   page = true;
-        // });
       }
-
-      // print(page);
     }
 
     return Form(
@@ -77,7 +64,6 @@ class _FormLoginState extends State<FormLogin> {
                 setState(() {
                   pwd = value;
                 });
-                debugPrint(pwd.toString());
               },
               obscureText: true,
               decoration: const InputDecoration(
@@ -90,15 +76,13 @@ class _FormLoginState extends State<FormLogin> {
                 return null;
               },
             ),
-            !page
-                ? Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: ElevatedButton(
-                      child: const Text("Login"),
-                      onPressed: handleLogin,
-                    ),
-                  )
-                : const Text("data"),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                child: const Text("Login"),
+                onPressed: handleLogin,
+              ),
+            )
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widget/bottom_nav.dart';
 import '../widget/form_login.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -25,7 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

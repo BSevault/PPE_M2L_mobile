@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/widget/bottom_nav.dart';
-import '../requester.dart';
+import '../utils/requester.dart';
+import '../widget/bottom_nav.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -51,7 +51,7 @@ class _TestState extends State<Test> {
             },
           ),
         ),
-        bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }

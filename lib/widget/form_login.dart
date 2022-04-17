@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/utils/requester.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
@@ -9,8 +10,22 @@ class FormLogin extends StatefulWidget {
 
 class _FormLoginState extends State<FormLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  late String pwd;
+  late String email;
   @override
   Widget build(BuildContext context) {
+    handleLogin() async {
+      var _login = await Requester.postRequest(
+          "/flutter/login", {"email": email, "password": pwd});
+      Map<dynamic, dynamic> result = _login as Map<dynamic, dynamic>;
+
+      if (result.isNotEmpty) {
+        Navigator.pushNamed(context, '/reservations',
+            arguments: {"userId": result['id']});
+      }
+    }
+
     return Form(
       key: _formKey,
       child: Container(
@@ -21,7 +36,7 @@ class _FormLoginState extends State<FormLogin> {
             const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                "Entrez votre login et password pour accèder à votre compte M2L",
+                "Connexion à votre compte M2L",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -29,6 +44,11 @@ class _FormLoginState extends State<FormLogin> {
               ),
             ),
             TextFormField(
+              onChanged: (String value) {
+                setState(() {
+                  email = value;
+                });
+              },
               decoration: const InputDecoration(
                 hintText: 'Email',
               ),
@@ -40,6 +60,11 @@ class _FormLoginState extends State<FormLogin> {
               },
             ),
             TextFormField(
+              onChanged: (String value) {
+                setState(() {
+                  pwd = value;
+                });
+              },
               obscureText: true,
               decoration: const InputDecoration(
                 hintText: 'Password',
@@ -54,13 +79,10 @@ class _FormLoginState extends State<FormLogin> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
-                onPressed: () => {
-                  if (_formKey.currentState!.validate())
-                    {Navigator.pushNamed(context, '/participant')}
-                },
                 child: const Text("Login"),
+                onPressed: handleLogin,
               ),
-            ),
+            )
           ],
         ),
       ),

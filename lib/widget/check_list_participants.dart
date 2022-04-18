@@ -24,27 +24,31 @@ class _CheckParticipantsState extends State<CheckParticipants> {
 
           return Column(
             children: [
-              ...(allParticipants[0] as List).map((oneParticipant) {
-                // print(oneParticipant);
-                bool test = false;
+              ...(allParticipants[0] as List).map(
+                (oneParticipant) {
+                  // print(oneParticipant);
+                  bool test = false;
 
-                return CheckboxListTile(
-                  title: Text(
-                      '${oneParticipant['prenom']} ${oneParticipant['nom']}'),
-                  subtitle: Text(oneParticipant['email']),
-                  value: timeDilation != 1.0,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      timeDilation = value! ? 1.2 : 1.0;
-                    });
-                  },
-                  secondary: const Icon(Icons.person_pin),
-                );
-              })
+                  return CheckboxListTile(
+                    title: Text(
+                        '${oneParticipant['prenom']} ${oneParticipant['nom']}'),
+                    subtitle: Text(oneParticipant['email']),
+                    value: timeDilation != 1.0,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        timeDilation = value! ? 1.2 : 1.0;
+                      });
+                    },
+                    secondary: const Icon(Icons.person_pin),
+                  );
+                },
+              ),
+              ElevatedButton(
+                  onPressed: () {}, child: const Text("Confirmer participants"))
             ],
           );
         } else {
-          return Text("Ca marche pas");
+          return const Text("Ca marche pas");
         }
       }),
     );

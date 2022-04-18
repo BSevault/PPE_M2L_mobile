@@ -12,7 +12,7 @@ class CardResa extends StatelessWidget {
     initializeDateFormatting('fr_FR', null);
     var dateResa =
         DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
-    var dateSec = DateTime.now().add(const Duration(days: 2));
+    var dateNow = DateTime.now().add(const Duration(days: 1));
 
     ButtonStyle styleBtn;
     Null Function()? onPressFct;
@@ -21,7 +21,7 @@ class CardResa extends StatelessWidget {
         'Salle ${oneResa?['nom']} - ${DateFormat.yMd('fr_FR').format(dateResa)}';
 
     if (DateFormat.yMd('fr_FR').format(dateResa) ==
-        (DateFormat.yMd('fr_FR').format(dateSec))) {
+        (DateFormat.yMd('fr_FR').format(dateNow))) {
       styleBtn = TextButton.styleFrom(
           maximumSize: const Size(double.infinity, 60),
           backgroundColor: const Color.fromARGB(186, 254, 200, 22),

@@ -35,15 +35,22 @@ class _GestionResaState extends State<GestionResa> {
               bottom: const TabBar(
                 tabs: [
                   Tab(
-                    icon: Icon(Icons.check),
+                    icon: Icon(
+                      Icons.check,
+                      color: Color.fromARGB(186, 254, 200, 22),
+                    ),
                     text: "Participants",
                   ),
                   Tab(
-                    icon: Icon(Icons.food_bank_outlined),
+                    icon: Icon(Icons.food_bank_outlined,
+                        color: Color.fromARGB(186, 254, 200, 22)),
                     text: "Services",
                   ),
                   Tab(
-                    icon: Icon(Icons.medical_services_outlined),
+                    icon: Icon(
+                      Icons.medical_services_outlined,
+                      color: Color.fromARGB(186, 254, 200, 22),
+                    ),
                     text: "Covid",
                   )
                 ],

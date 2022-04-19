@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/widget/check_list_participants.dart';
+import 'package:mobile/widget/check_participants.dart';
 
-class Template extends StatefulWidget {
-  const Template({Key? key, required this.title}) : super(key: key);
+class GestionResa extends StatefulWidget {
+  const GestionResa({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<Template> createState() => _TemplateState();
+  State<GestionResa> createState() => _GestionResaState();
 }
 
-class _TemplateState extends State<Template> {
+class _GestionResaState extends State<GestionResa> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;

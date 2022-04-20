@@ -38,13 +38,13 @@ class _GestionResaState extends State<GestionResa> {
                   Tab(
                     icon: Icon(
                       Icons.check,
-                      color: Color.fromARGB(186, 254, 200, 22),
+                      color: Color.fromARGB(255, 254, 200, 22),
                     ),
                     text: "Participants",
                   ),
                   Tab(
                     icon: Icon(Icons.food_bank_outlined,
-                        color: Color.fromARGB(186, 254, 200, 22)),
+                        color: Color.fromARGB(255, 254, 200, 22)),
                     text: "Services",
                   ),
                   // Tab(

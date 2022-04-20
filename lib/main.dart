@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/home/reservations.dart';
-import 'package:mobile/home/gestion_resa.dart';
-import 'home/my_home_page.dart';
+import 'package:mobile/page/reservations.dart';
+import 'package:mobile/page/gestion_resa.dart';
+import 'page/my_home_page.dart';
 
 void main() => runApp(const MyApp());
 

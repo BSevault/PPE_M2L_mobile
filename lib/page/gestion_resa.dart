@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/page/listeProduit.dart';
 import 'package:mobile/widget/check_participants.dart';
 
 class GestionResa extends StatefulWidget {
@@ -52,7 +53,7 @@ class _GestionResaState extends State<GestionResa> {
             body: TabBarView(
               children: [
                 Center(child: CheckParticipants(idResa: args['idResa'])),
-                const Center(child: Text("Services")),
+                const Center(child: ListeProduit()),
                 const Center(child: Text("Covid")),
               ],
             ),

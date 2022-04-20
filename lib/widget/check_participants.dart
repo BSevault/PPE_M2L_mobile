@@ -26,24 +26,34 @@ class _CheckParticipantsState extends State<CheckParticipants> {
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           var allParticipants = snapshot.data as List;
+          var colorCard = Color.fromARGB(255, 241, 237, 187);
 
           void itemChange(bool? val, int index) {
             setState(() {
               allParticipants[index].isCheck = val;
-              // print(allParticipants[index].isCheck);
+              // // print(allParticipants[index].isCheck);
             });
           }
 
           return ListView.builder(
+            padding: const EdgeInsets.all(10),
             itemCount: allParticipants.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
+                color: colorCard,
                 child: Column(
                   children: [
                     CheckboxListTile(
                       title: Text(
-                          '${allParticipants[index].prenom} ${allParticipants[index].nom}'),
-                      subtitle: Text('${allParticipants[index].email}'),
+                        '${allParticipants[index].prenom} ${allParticipants[index].nom}',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      subtitle: Text(
+                        '${allParticipants[index].email}',
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 21, 121, 133),
+                        ),
+                      ),
                       value: allParticipants[index].isCheck,
                       onChanged: (bool? val) {
                         itemChange(val, index);

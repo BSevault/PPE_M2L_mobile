@@ -6,7 +6,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 abstract class Requester {
-  static const String _base_url = 'http://10.0.2.2:3001';
+  // ip aws
+  static const String _base_url = 'http://15.237.109.149:3001';
+  // ip localhost vm android
+  // static const String _base_url = 'http://10.0.2.2:3001';
 
   // not necessary for now (?)
   static final Map<String, String> _headers = {

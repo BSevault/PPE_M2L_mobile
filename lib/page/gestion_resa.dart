@@ -16,7 +16,7 @@ class _GestionResaState extends State<GestionResa> {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     // print(args);
     return DefaultTabController(
-      length: 3,
+      length: 2,
       // The Builder widget is used to have a different BuildContext to access
       // closest DefaultTabController.
       child: Builder(
@@ -43,10 +43,10 @@ class _GestionResaState extends State<GestionResa> {
                     icon: Icon(Icons.food_bank_outlined),
                     text: "Services",
                   ),
-                  Tab(
-                    icon: Icon(Icons.medical_services_outlined),
-                    text: "Covid",
-                  )
+                  // Tab(
+                  //   icon: Icon(Icons.medical_services_outlined),
+                  //   text: "Covid",
+                  // )
                 ],
               ),
             ),
@@ -54,7 +54,7 @@ class _GestionResaState extends State<GestionResa> {
               children: [
                 Center(child: CheckParticipants(idResa: args['idResa'])),
                 const Center(child: ListeProduit()),
-                const Center(child: Text("Covid")),
+                // const Center(child: Text("Covid")),
               ],
             ),
           );

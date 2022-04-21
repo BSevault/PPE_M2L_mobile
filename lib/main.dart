@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/page/reservations.dart';
 import 'package:mobile/page/gestion_resa.dart';
-import 'page/my_home_page.dart';
+import 'page/home.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,14 +15,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorSchemeSeed: const Color(0xFF068D9D),
       ),
-      home: const MyHomePage(title: 'M2L - Gestion des réunions'),
-      routes: <String, WidgetBuilder>{
-        '/gestion': (BuildContext context) => const GestionResa(
-              title: 'Gestion de réservations',
-            ),
-        '/reservations': ((BuildContext context) => const Reservations(
-              title: 'Vos réservations',
-            )),
+      routes: {
+        '/': (context) => Home(title: 'M2L - Gestion des réunions'),
+        '/gestion': (context) => GestionResa(title: 'Gestion de réservations'),
+        '/reservations': (context) => Reservations(title: 'Vos réservations'),
       },
     );
   }

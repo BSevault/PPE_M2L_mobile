@@ -47,10 +47,20 @@ class _GestionResaState extends State<GestionResa> {
                         color: Color.fromARGB(255, 254, 200, 22)),
                     text: "Services",
                   ),
+<<<<<<< HEAD:lib/page/gestion_resa.dart
                   // Tab(
                   //   icon: Icon(Icons.medical_services_outlined),
                   //   text: "Covid",
                   // )
+=======
+                  Tab(
+                    icon: Icon(
+                      Icons.medical_services_outlined,
+                      color: Color.fromARGB(255, 254, 200, 22),
+                    ),
+                    text: "Covid",
+                  )
+>>>>>>> 13557ab9ded37fde239246ea5d1b439d79edce4f:lib/home/gestion_resa.dart
                 ],
               ),
             ),

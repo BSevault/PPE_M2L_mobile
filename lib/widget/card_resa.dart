@@ -13,7 +13,11 @@ class CardResa extends StatelessWidget {
     initializeDateFormatting('fr_FR', null);
     var dateResa =
         DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
+<<<<<<< HEAD
     var dateNow = DateTime.now().add(const Duration(days: 2));
+=======
+    var dateNow = DateTime.now();
+>>>>>>> 13557ab9ded37fde239246ea5d1b439d79edce4f
     // print(dateNow);
 
     Null Function()? onPressFct;

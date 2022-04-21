@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:mobile/utils/requester.dart';
+import '../utils/class_participants.dart';
 
 // ignore: must_be_immutable
 class CheckParticipants extends StatefulWidget {
@@ -11,40 +10,68 @@ class CheckParticipants extends StatefulWidget {
   State<CheckParticipants> createState() => _CheckParticipantsState();
 }
 
-class _CheckParticipantsState extends State<CheckParticipants> {
+class _CheckParticipantsState extends State<CheckParticipants>
+    with AutomaticKeepAliveClientMixin {
+  var dataFetched;
+
+  @override
+  void initState() {
+    super.initState();
+    dataFetched = Participants.getParticipants(widget.idResa);
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
-    print(widget.idResa);
-
     return FutureBuilder(
-      future: Requester.getRequest('/flutter/${widget.idResa}/participants'),
+      future: dataFetched,
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           var allParticipants = snapshot.data as List;
+          var colorCard = const Color.fromARGB(255, 241, 237, 187);
+
+          void itemChange(bool? val, int index) {
+            setState(() {
+              allParticipants[index].isCheck = val;
+              // // print(allParticipants[index].isCheck);
+            });
+          }
 
           return Column(
             children: [
-              ...(allParticipants[0] as List).map(
-                (oneParticipant) {
-                  // print(oneParticipant);
-                  bool test = false;
-
-                  return CheckboxListTile(
-                    title: Text(
-                        '${oneParticipant['prenom']} ${oneParticipant['nom']}'),
-                    subtitle: Text(oneParticipant['email']),
-                    value: timeDilation != 1.0,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        timeDilation = value! ? 1.2 : 1.0;
-                      });
-                    },
-                    secondary: const Icon(Icons.person_pin),
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(10),
+                itemCount: allParticipants.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    color: colorCard,
+                    child: CheckboxListTile(
+                      title: Text(
+                        '${allParticipants[index].prenom} ${allParticipants[index].nom}',
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      subtitle: Text(
+                        '${allParticipants[index].email}',
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 21, 121, 133),
+                        ),
+                      ),
+                      value: allParticipants[index].isCheck,
+                      onChanged: (bool? val) {
+                        itemChange(val, index);
+                      },
+                    ),
                   );
                 },
               ),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Confirmer participants"))
+              ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.send_sharp),
+                  label: const Text("Submit"))
             ],
           );
         } else {

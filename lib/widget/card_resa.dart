@@ -9,12 +9,13 @@ class CardResa extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(oneResa);
     initializeDateFormatting('fr_FR', null);
     var dateResa =
         DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
     var dateNow = DateTime.now();
+    // print(dateNow);
 
-    ButtonStyle styleBtn;
     Null Function()? onPressFct;
     Color colorCard;
     String textCard =
@@ -22,12 +23,6 @@ class CardResa extends StatelessWidget {
 
     if (DateFormat.yMd('fr_FR').format(dateResa) ==
         (DateFormat.yMd('fr_FR').format(dateNow))) {
-      styleBtn = TextButton.styleFrom(
-          maximumSize: const Size(double.infinity, 60),
-          backgroundColor: const Color.fromARGB(186, 254, 200, 22),
-          primary: const Color(0xFF068D9D),
-          textStyle: const TextStyle(fontSize: 20));
-
       onPressFct = () {
         Navigator.pushNamed(context, '/gestion', arguments: {
           "idResa": oneResa?['id'],
@@ -36,25 +31,37 @@ class CardResa extends StatelessWidget {
       };
       colorCard = const Color.fromARGB(186, 254, 200, 22);
     } else {
-      styleBtn = TextButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
       onPressFct = null;
-      colorCard = const Color.fromARGB(185, 150, 141, 111);
+      colorCard = const Color.fromARGB(71, 82, 81, 77);
     }
 
-    return Card(
-      margin: const EdgeInsets.all(10),
-      shadowColor: Colors.black,
-      color: colorCard,
-      elevation: 8,
-      child: TextButton(
-        onPressed: onPressFct,
-        style: styleBtn,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(textCard),
+    return Container(
+      width: double.infinity,
+      height: 40,
+      decoration: BoxDecoration(
+          color: colorCard,
+          boxShadow: const [
+            BoxShadow(
+              offset: Offset(2, 3),
+              blurRadius: 6,
+              spreadRadius: 2,
+              color: Color.fromARGB(55, 54, 52, 52),
+            )
           ],
+          borderRadius: const BorderRadius.all(Radius.circular(8))),
+      margin: const EdgeInsets.all(10),
+      child: Center(
+        child: GestureDetector(
+          onTap: onPressFct,
+          child: Text(
+            textCard,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 21, 121, 133),
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
+          ),
         ),
       ),
     );

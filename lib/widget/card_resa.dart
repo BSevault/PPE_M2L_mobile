@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class CardResa extends StatelessWidget {
-  CardResa({Key? key, this.oneResa, required this.userIdResa})
-      : super(key: key);
+  CardResa({Key? key, this.oneResa, this.userIdResa}) : super(key: key);
   Map? oneResa;
   int? userIdResa;
 

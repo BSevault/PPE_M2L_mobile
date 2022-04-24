@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mobile/widget/card_participant.dart';
 import '../utils/class_participants.dart';
-import '../utils/requester.dart';
 
 // ignore: must_be_immutable
 class CheckParticipants extends StatefulWidget {
@@ -23,7 +22,6 @@ class _CheckParticipantsState extends State<CheckParticipants>
     with AutomaticKeepAliveClientMixin {
   // ignore: prefer_typing_uninitialized_variables
   var dataFetched;
-  late String _sendtext = "";
 
   @override
   void initState() {
@@ -42,88 +40,41 @@ class _CheckParticipantsState extends State<CheckParticipants>
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           var allParticipants = snapshot.data as List;
-          var colorCard = const Color.fromARGB(255, 241, 237, 187);
+          Color colorCard = const Color.fromARGB(255, 241, 237, 187);
 
           void itemChange(bool? val, int index) {
             setState(() {
               allParticipants[index].isCheck = val;
-              // // print(allParticipants[index].isCheck);
+              // print(allParticipants[index].isCheck);
             });
           }
 
-          if (_sendtext.isNotEmpty) {
-            Timer(const Duration(seconds: 5), (() {
-              setState(() {
-                _sendtext = "";
-              });
-            }));
-          }
-
-          return Column(
+          return ListView(
             children: [
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(10),
-                itemCount: allParticipants.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    color: colorCard,
-                    child: CheckboxListTile(
-                      title: Text(
-                        '${allParticipants[index].prenom} ${allParticipants[index].nom}',
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      subtitle: Text(
-                        '${allParticipants[index].email}',
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 21, 121, 133),
+              CardParticipants(
+                allParticipants: allParticipants,
+                itemChange: itemChange,
+                colorCard: colorCard,
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(100, 0, 100, 70),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Participants.checkParticipants(
+                        allParticipants, widget.idResa, widget.userIdResa);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Liste d\'appel mis à jour !',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18),
                         ),
+                        duration: Duration(milliseconds: 2500),
                       ),
-                      secondary: const Icon(
-                        Icons.person,
-                        color: Color.fromARGB(255, 21, 121, 133),
-                        size: 40,
-                      ),
-                      value: allParticipants[index].isCheck,
-                      onChanged: (bool? val) {
-                        itemChange(val, index);
-                      },
-                    ),
-                  );
-                },
-              ),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  allParticipants.forEach((participant) async {
-                    await Requester.putRequest(
-                        '/flutter/${widget.idResa}/participants', {
-                      "id_user": participant.userId,
-                      "is_present": participant.isCheck
-                    });
-                  });
-                  await Requester.putRequest(
-                    '/flutter/${widget.userIdResa}/reservations',
-                    {"id_resa": '${widget.idResa}'},
-                  );
-                  setState(() {
-                    _sendtext = "Checklist mise à jour";
-                    widget.checkParticipants = 1;
-                  });
-                },
-                icon: const Icon(Icons.send_sharp),
-                label: const Text("Enregistrer"),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
-                child: Text(
-                  _sendtext,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.italic,
-                  ),
+                    );
+                  },
+                  icon: const Icon(Icons.send_sharp),
+                  label: const Text("Enregistrer"),
                 ),
               ),
             ],

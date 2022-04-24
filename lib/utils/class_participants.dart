@@ -25,4 +25,16 @@ class Participants {
 
     return _listParticipants;
   }
+
+  static void checkParticipants(
+      List allParticipants, int? idResa, int? userIdResa) async {
+    allParticipants.forEach((participant) async {
+      await Requester.putRequest('/flutter/$idResa/participants',
+          {"id_user": participant.userId, "is_present": participant.isCheck});
+    });
+    await Requester.putRequest(
+      '/flutter/$userIdResa/reservations',
+      {"id_resa": '$idResa'},
+    );
+  }
 }

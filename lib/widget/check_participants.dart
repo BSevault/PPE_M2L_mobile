@@ -1,10 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../utils/class_participants.dart';
+import '../utils/requester.dart';
 
 // ignore: must_be_immutable
 class CheckParticipants extends StatefulWidget {
-  CheckParticipants({Key? key, required this.idResa}) : super(key: key);
+  CheckParticipants(
+      {Key? key,
+      required this.idResa,
+      required this.checkParticipants,
+      required this.userIdResa})
+      : super(key: key);
   int? idResa;
+  int? checkParticipants;
+  int? userIdResa;
 
   @override
   State<CheckParticipants> createState() => _CheckParticipantsState();
@@ -12,6 +22,7 @@ class CheckParticipants extends StatefulWidget {
 
 class _CheckParticipantsState extends State<CheckParticipants>
     with AutomaticKeepAliveClientMixin {
+  // ignore: prefer_typing_uninitialized_variables
   var dataFetched;
 
   @override
@@ -23,7 +34,10 @@ class _CheckParticipantsState extends State<CheckParticipants>
   @override
   bool get wantKeepAlive => true;
 
+  late String _sendtext = "";
+
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: dataFetched,
@@ -37,6 +51,14 @@ class _CheckParticipantsState extends State<CheckParticipants>
               allParticipants[index].isCheck = val;
               // // print(allParticipants[index].isCheck);
             });
+          }
+
+          if (_sendtext.isNotEmpty) {
+            Timer(const Duration(seconds: 5), (() {
+              setState(() {
+                _sendtext = "";
+              });
+            }));
           }
 
           return Column(
@@ -69,9 +91,36 @@ class _CheckParticipantsState extends State<CheckParticipants>
                 },
               ),
               ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.send_sharp),
-                  label: const Text("Submit"))
+                onPressed: () async {
+                  allParticipants.forEach((participant) async {
+                    await Requester.putRequest(
+                        '/flutter/${widget.idResa}/participants', {
+                      "id_user": participant.userId,
+                      "is_present": participant.isCheck
+                    });
+                  });
+                  await Requester.putRequest(
+                    '/flutter/${widget.userIdResa}/reservations',
+                    {"id_resa": '${widget.idResa}'},
+                  );
+                  setState(() {
+                    _sendtext = "Appel modifié";
+                    widget.checkParticipants = 1;
+                  });
+                },
+                icon: const Icon(Icons.send_sharp),
+                label: const Text("Enregistrer"),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+                child: Text(
+                  _sendtext,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             ],
           );
         } else {

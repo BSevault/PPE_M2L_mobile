@@ -4,8 +4,10 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class CardResa extends StatelessWidget {
-  CardResa({Key? key, this.oneResa}) : super(key: key);
+  CardResa({Key? key, this.oneResa, required this.userIdResa})
+      : super(key: key);
   Map? oneResa;
+  int? userIdResa;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class CardResa extends StatelessWidget {
     initializeDateFormatting('fr_FR', null);
     var dateResa =
         DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
-    var dateNow = DateTime.now();
+    var dateNow = DateTime.now().add(const Duration(days: 3));
     // print(dateNow);
 
     Null Function()? onPressFct;
@@ -26,6 +28,8 @@ class CardResa extends StatelessWidget {
       onPressFct = () {
         Navigator.pushNamed(context, '/gestion', arguments: {
           "idResa": oneResa?['id'],
+          "userIdResa": userIdResa,
+          "checkParticipants": oneResa?['check_participants'],
           "titre": textCard,
         });
       };

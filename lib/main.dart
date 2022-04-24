@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => Home(title: 'M2L - Gestion des réunions'),
-        '/gestion': (context) => GestionResa(title: 'Gestion de réservations'),
+        '/gestion': (context) => GestionResa(),
         '/reservations': (context) => Reservations(title: 'Vos réservations'),
       },
     );

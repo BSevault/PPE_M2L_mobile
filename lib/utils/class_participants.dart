@@ -13,9 +13,13 @@ class Participants {
     List<Participants> _listParticipants = [];
     var _all = await Requester.getRequest('/flutter/$idResa/participants');
     _all[0].forEach((participant) {
+      bool isPresent;
+
+      participant['is_present'] == 1 ? isPresent = true : isPresent = false;
+
       _listParticipants.add(
         Participants(participant['id'], participant['nom'],
-            participant['prenom'], participant['email'], false),
+            participant['prenom'], participant['email'], isPresent),
       );
     });
 

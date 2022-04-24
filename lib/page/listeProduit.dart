@@ -33,7 +33,7 @@ class _ListeProduitState extends State<ListeProduit> {
                 } else {
                   List produits = snapshot.data[0];
                   produits.removeRange(0, 3);
-                  print(produits);
+                  // print(produits);
                   return ListView.builder(
                     itemCount: produits.length,
                     itemBuilder: (context, index) => Card(

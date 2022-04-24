@@ -7,9 +7,9 @@ import 'dart:convert';
 
 abstract class Requester {
   // ip aws
-  static const String _base_url = 'http://15.237.109.149:3001';
+  // static const String _base_url = 'http://15.237.109.149:3001';
   // ip localhost vm android
-  // static const String _base_url = 'http://10.0.2.2:3001';
+  static const String _base_url = 'http://10.0.2.2:3001';
 
   // not necessary for now (?)
   static final Map<String, String> _headers = {
@@ -33,6 +33,20 @@ abstract class Requester {
   static Future<dynamic> postRequest(String url, var reqBody) async {
     try {
       final response = await http.post(Uri.parse(_base_url + url),
+          headers: _headers, body: jsonEncode(reqBody));
+      if (response.statusCode == 200) {
+        return json.decode(response.body)["success"];
+      } else {
+        return Future.error('erreur serveur');
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  static Future<dynamic> putRequest(String url, var reqBody) async {
+    try {
+      final response = await http.put(Uri.parse(_base_url + url),
           headers: _headers, body: jsonEncode(reqBody));
       if (response.statusCode == 200) {
         return json.decode(response.body)["success"];

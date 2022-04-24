@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import '../utils/class_participants.dart';
 import '../utils/requester.dart';
@@ -24,6 +23,7 @@ class _CheckParticipantsState extends State<CheckParticipants>
     with AutomaticKeepAliveClientMixin {
   // ignore: prefer_typing_uninitialized_variables
   var dataFetched;
+  late String _sendtext = "";
 
   @override
   void initState() {
@@ -33,8 +33,6 @@ class _CheckParticipantsState extends State<CheckParticipants>
 
   @override
   bool get wantKeepAlive => true;
-
-  late String _sendtext = "";
 
   @override
   // ignore: must_call_super
@@ -82,6 +80,11 @@ class _CheckParticipantsState extends State<CheckParticipants>
                           color: Color.fromARGB(255, 21, 121, 133),
                         ),
                       ),
+                      secondary: const Icon(
+                        Icons.person,
+                        color: Color.fromARGB(255, 21, 121, 133),
+                        size: 40,
+                      ),
                       value: allParticipants[index].isCheck,
                       onChanged: (bool? val) {
                         itemChange(val, index);
@@ -104,7 +107,7 @@ class _CheckParticipantsState extends State<CheckParticipants>
                     {"id_resa": '${widget.idResa}'},
                   );
                   setState(() {
-                    _sendtext = "Appel modifié";
+                    _sendtext = "Checklist mise à jour";
                     widget.checkParticipants = 1;
                   });
                 },
@@ -117,7 +120,9 @@ class _CheckParticipantsState extends State<CheckParticipants>
                   _sendtext,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
               ),

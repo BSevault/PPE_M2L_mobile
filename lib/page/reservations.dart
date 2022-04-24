@@ -34,7 +34,9 @@ class _ReservationsState extends State<Reservations> {
                 children: [
                   ...(resa[0] as List).map(
                     (oneResa) {
-                      return CardResa(oneResa: oneResa);
+                      // print(oneResa);
+                      return CardResa(
+                          oneResa: oneResa, userIdResa: args['userId']);
                     },
                   ),
                 ],

@@ -3,8 +3,7 @@ import 'package:mobile/page/listeProduit.dart';
 import 'package:mobile/widget/check_participants.dart';
 
 class GestionResa extends StatefulWidget {
-  const GestionResa({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const GestionResa({Key? key}) : super(key: key);
 
   @override
   State<GestionResa> createState() => _GestionResaState();
@@ -56,7 +55,12 @@ class _GestionResaState extends State<GestionResa> {
             ),
             body: TabBarView(
               children: [
-                Center(child: CheckParticipants(idResa: args['idResa'])),
+                Center(
+                  child: CheckParticipants(
+                      idResa: args['idResa'],
+                      checkParticipants: args['checkParticipants'],
+                      userIdResa: args['userIdResa']),
+                ),
                 const Center(child: ListeProduit()),
                 // const Center(child: Text("Covid")),
               ],

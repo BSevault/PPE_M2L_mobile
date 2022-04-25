@@ -44,8 +44,21 @@ class _ReservationsState extends State<Reservations> {
             ),
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(widget.title),
+              automaticallyImplyLeading: false,
+            ),
+            body: const Center(
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  "Vous n'avez pas de réservations en cours...",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+            ),
           );
         }
       },

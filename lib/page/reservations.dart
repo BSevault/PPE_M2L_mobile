@@ -22,42 +22,127 @@ class _ReservationsState extends State<Reservations> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var resa = snapshot.data as List;
+          return DefaultTabController(
+            length: 2,
+            // The Builder widget is used to have a different BuildContext to access
+            // closest DefaultTabController.
+            child: Builder(
+              builder: (BuildContext context) {
+                final TabController tabController =
+                    DefaultTabController.of(context)!;
+                tabController.addListener(() {
+                  if (!tabController.indexIsChanging) {
+                    // print(tabController.index);
+                    // Your code goes here.
+                    // To get index of current tab use tabController.index
+                  }
+                });
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-              automaticallyImplyLeading: false,
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ...(resa[0] as List).map(
-                    (oneResa) {
-                      // print(oneResa);
-                      return CardResa(
-                          oneResa: oneResa, userIdResa: args['userId']);
-                    },
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text(widget.title),
+                    bottom: const TabBar(
+                      tabs: [
+                        Tab(
+                          icon: Icon(
+                            Icons.check,
+                            color: Color.fromARGB(255, 254, 200, 22),
+                          ),
+                          text: "Participants",
+                        ),
+                        Tab(
+                          icon: Icon(Icons.medical_services_outlined,
+                              color: Color.fromARGB(255, 254, 200, 22)),
+                          text: "Covid",
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                  body: TabBarView(
+                    children: [
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ...(resa[0] as List).map(
+                              (oneResa) {
+                                // print(oneResa);
+                                return CardResa(
+                                    oneResa: oneResa,
+                                    userIdResa: args['userId']);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Center(child: Text('covidPage')),
+                      // const Center(child: Text("Covid")),
+                    ],
+                  ),
+                );
+              },
             ),
           );
         } else {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-              automaticallyImplyLeading: false,
-            ),
-            body: const Center(
-              child: Padding(
-                padding: EdgeInsets.all(12),
-                child: Text(
-                  "Vous n'avez pas de réservations en cours...",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
+          return DefaultTabController(
+            length: 2,
+            // The Builder widget is used to have a different BuildContext to access
+            // closest DefaultTabController.
+            child: Builder(
+              builder: (BuildContext context) {
+                final TabController tabController =
+                    DefaultTabController.of(context)!;
+                tabController.addListener(() {
+                  if (!tabController.indexIsChanging) {
+                    // print(tabController.index);
+                    // Your code goes here.
+                    // To get index of current tab use tabController.index
+                  }
+                });
+
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text(widget.title),
+                    // automaticallyImplyLeading: false,
+                    bottom: const TabBar(
+                      tabs: [
+                        Tab(
+                          icon: Icon(
+                            Icons.check,
+                            color: Color.fromARGB(255, 254, 200, 22),
+                          ),
+                          text: "Participants",
+                        ),
+                        Tab(
+                          icon: Icon(Icons.medical_services_outlined,
+                              color: Color.fromARGB(255, 254, 200, 22)),
+                          text: "Covid",
+                        ),
+                        // Tab(
+                        //   icon: Icon(Icons.medical_services_outlined),
+                        //   text: "Covid",
+                        // )
+                      ],
+                    ),
+                  ),
+                  body: TabBarView(
+                    children: [
+                      const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(12),
+                          child: Text(
+                            "Vous n'avez pas de réservations en cours...",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 24),
+                          ),
+                        ),
+                      ),
+                      const Center(child: Text('covidPage')),
+                      // const Center(child: Text("Covid")),
+                    ],
+                  ),
+                );
+              },
             ),
           );
         }

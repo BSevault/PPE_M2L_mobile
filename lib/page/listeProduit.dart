@@ -1,5 +1,9 @@
+import 'dart:html';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+
 import '../utils/requester.dart';
+import '../widget/produit.dart';
 
 // void main(List<String> args) => runApp(ListeProduit());
 
@@ -11,17 +15,30 @@ class ListeProduit extends StatefulWidget {
 }
 
 class _ListeProduitState extends State<ListeProduit> {
+  List<Produit> listeProduits = [];
+  List<Produit> cart = [];
+  int cartTotalCount = 0;
+
+  void addToCart(int index) {
+    setState(() {
+      listeProduits[index].count++;
+      cartTotalCount++;
+      if (!listeProduits[index].isInCart) {
+        cart.add(listeProduits[index]);
+      }
+    });
+    print('${listeProduits[index].nom} count: ${listeProduits[index].count} ');
+    print('cartTotalCount: ${cartTotalCount}');
+  }
+
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    print(args);
+
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: const Text("Liste des produits"),
-        //   leading: const Icon(
-        //     Icons.shopping_cart,
-        //   ),
-        // ),
-        body: Container(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: FutureBuilder(
               future: Requester.getRequest('/flutter/produits'),
@@ -33,26 +50,59 @@ class _ListeProduitState extends State<ListeProduit> {
                 } else {
                   List produits = snapshot.data[0];
                   produits.removeRange(0, 3);
-                  // print(produits);
-                  return ListView.builder(
-                    itemCount: produits.length,
-                    itemBuilder: (context, index) => Card(
-                      child: ListTile(
-                        title: Text(
-                          produits[index]['nom_produit'],
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                  produits
+                      .mapIndexed((index, produit) => {
+                            listeProduits.add(
+                              Produit(
+                                id: produit['id'],
+                                nom: produit['nom_produit'],
+                                description: produit['description'],
+                                qte: produit['qte_dispo'],
+                                prix: produit['prix'],
+                                isActive: produit['is_active'],
+                                handleTap: () => addToCart(index),
+                              ),
+                            ),
+                          })
+                      .toList();
+                  return Column(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.all(20),
+                        child: const Text(
+                          'Voici la liste de nos produits disponibles',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
                         ),
-                        subtitle: Text(produits[index]['description']),
-                        trailing: Text(
-                          '${produits[index]['prix'].toStringAsFixed(2)} €',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                        // contentPadding:
-                        //     const EdgeInsets.fromLTRB(5, 0, 0, 20),
-                        tileColor: Theme.of(context).primaryColorLight,
                       ),
-                    ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: produits.length,
+                          itemBuilder: (context, index) =>
+                              listeProduits[index].isActive == 1
+                                  ? listeProduits[index]
+                                  : const SizedBox(height: 0)),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(100, 25, 100, 70),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            // TODO: postRequest...
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text(
+                            //       'Liste d\'appel mis à jour !',
+                            //       textAlign: TextAlign.center,
+                            //       style: TextStyle(fontSize: 18),
+                            //     ),
+                            //     duration: Duration(milliseconds: 2500),
+                            //   ),
+                            // );
+                          },
+                          icon: const Icon(Icons.shopping_cart),
+                          label: const Text("Valider votre panier"),
+                        ),
+                      ),
+                    ],
                   );
                 }
               }),

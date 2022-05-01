@@ -48,7 +48,7 @@ class _ReservationsState extends State<Reservations> {
                             Icons.check,
                             color: Color.fromARGB(255, 254, 200, 22),
                           ),
-                          text: "Participants",
+                          text: "Réservations",
                         ),
                         Tab(
                           icon: Icon(Icons.medical_services_outlined,
@@ -111,7 +111,7 @@ class _ReservationsState extends State<Reservations> {
                             Icons.check,
                             color: Color.fromARGB(255, 254, 200, 22),
                           ),
-                          text: "Participants",
+                          text: "Réservations",
                         ),
                         Tab(
                           icon: Icon(Icons.medical_services_outlined,

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/utils/requester.dart';
+import 'package:mobile/widget/card_parti_covid.dart';
 import 'package:mobile/widget/card_resa.dart';
 
 // ignore: must_be_immutable
 class PartiHistory extends StatefulWidget {
-  const PartiHistory({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const PartiHistory({Key? key}) : super(key: key);
 
   @override
   State<PartiHistory> createState() => _PartiHistoryState();
@@ -25,17 +24,13 @@ class _PartiHistoryState extends State<PartiHistory> {
           var resa = snapshot.data as List;
 
           return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-              automaticallyImplyLeading: false,
-            ),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ...(resa[0] as List).map(
                     (oneResa) {
-                      return CardResa(oneResa: oneResa);
+                      return CardPartiCovid(oneResa: oneResa);
                     },
                   ),
                 ],

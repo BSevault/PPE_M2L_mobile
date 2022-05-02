@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/utils/requester.dart';
 import 'package:mobile/widget/card_resa.dart';
-import 'package:mobile/widget/card_parti_covid_old.dart';
+import 'package:mobile/widget/card_parti_covid.dart';
 // import 'package:mobile/widget/check_parti_covid.dart';
 
 // ignore: must_be_immutable

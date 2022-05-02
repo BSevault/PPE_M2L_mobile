@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/gestion': (context) => GestionResa(),
         '/reservations': (context) => Reservations(title: 'Vos réservations'),
         '/cart': (context) => Cart(),
+        '/covid': (context) => Text('test'),
       },
     );
   }

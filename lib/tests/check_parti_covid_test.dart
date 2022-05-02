@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/utils/requester.dart';
-import 'package:mobile/widget/card_parti_covid.dart';
+import 'package:mobile/tests/card_parti_covid_test.dart';
 import 'package:mobile/widget/card_participant.dart';
 import '../utils/class_participants.dart';
 

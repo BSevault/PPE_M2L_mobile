@@ -15,7 +15,7 @@ class CardResa extends StatelessWidget {
     var dateResa =
         DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
     var dateNow = DateTime.now();
-    // print(dateNow);
+    // print(dateNesa);
 
     Null Function()? onPressFct;
     Color colorCard;

@@ -4,51 +4,58 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class CardPartiCovid extends StatelessWidget {
-  CardPartiCovid({Key? key, this.oneResa, this.userIdResa}) : super(key: key);
-  Map? oneResa;
-  int? userIdResa;
+  CardPartiCovid(
+      {Key? key,
+      required this.allParticipations,
+      required this.itemChange,
+      this.colorCard})
+      : super(key: key);
+  List allParticipations;
+  Function itemChange;
+  Color? colorCard;
+
+  final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    // print(oneResa);
-    initializeDateFormatting('fr_FR', null);
-    var dateResa =
-        DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
+    // this.allParticipations.forEach((element) {
+    //   var dateResa =
+    //       DateTime.parse(element['date_resa']).add(const Duration(days: 1));
+    //   element['date_format'] = DateFormat.yMd('fr_FR').format(dateResa);
+    // });
 
-    Null Function()? onPressFct;
-    Color colorCard = const Color.fromARGB(186, 254, 200, 22);
-    String textCard =
-        'Salle ${oneResa?['nom_salle']} - ${DateFormat.yMd('fr_FR').format(dateResa)} - Admin email: ${oneResa?['email']}';
-
-    return Container(
-      width: double.infinity,
-      height: 40,
-      decoration: BoxDecoration(
+    return ListView.builder(
+      // controller: controller,
+      // scrollDirection: Axis.vertical,
+      // shrinkWrap: true,
+      // padding: const EdgeInsets.all(10),
+      itemCount: allParticipations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
           color: colorCard,
-          boxShadow: const [
-            BoxShadow(
-              offset: Offset(2, 3),
-              blurRadius: 6,
-              spreadRadius: 2,
-              color: Color.fromARGB(55, 54, 52, 52),
-            )
-          ],
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      margin: const EdgeInsets.all(10),
-      child: Center(
-        child: GestureDetector(
-          onTap: onPressFct,
-          child: Text(
-            textCard,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 21, 121, 133),
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
+          child: CheckboxListTile(
+            title: Text(
+              '${allParticipations[index].nom_salle} - ${allParticipations[index].date_resa}',
+              style: const TextStyle(fontWeight: FontWeight.w500),
             ),
+            subtitle: Text(
+              '${allParticipations[index].email}',
+              style: const TextStyle(
+                color: Color.fromARGB(255, 21, 121, 133),
+              ),
+            ),
+            secondary: const Icon(
+              Icons.medical_services,
+              color: Color.fromARGB(255, 21, 121, 133),
+              size: 40,
+            ),
+            value: allParticipations[index].isCheck,
+            onChanged: (bool? val) {
+              itemChange(val, index);
+            },
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

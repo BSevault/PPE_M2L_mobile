@@ -16,41 +16,112 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
-
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-  List<Produit> cart = args[];
+    List<Produit> cart = args['cart'];
 
-    for (var item in args['cart']) {
+    handleCart() async {
+      int userId = args['userIdResa'];
+      int resaId = args['idResa'];
+      if (!cart.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Votre panier est vide',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+            duration: Duration(milliseconds: 2500),
+          ),
+        );
+      } else {
+        for (var produit in cart) {
+          await Requester.postRequest('/flutter/produits/$userId/$resaId',
+              {'qte': produit.count, 'produit_id': produit.id});
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Votre commande est confirmée',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+            duration: Duration(milliseconds: 2500),
+          ),
+        );
+
+        Future.delayed(
+            const Duration(milliseconds: 2500), () => {Navigator.pop(context)});
+      }
+    }
+
+    String cartTotal(List<Produit> cart) {
+      double total = 0;
+      for (var produit in cart) {
+        total += produit.count * produit.prix;
+      }
+      return total.toStringAsFixed(2);
+    }
+
+    for (var item in cart) {
       print(item.nom);
     }
 
-    return DefaultTabController(
-      length: 1,
-      // The Builder widget is used to have a different BuildContext to access
-      // closest DefaultTabController.
-      child: Builder(
-        builder: (BuildContext context) {
-          final TabController tabController = DefaultTabController.of(context)!;
-          tabController.addListener(() {
-            if (!tabController.indexIsChanging) {
-              // print(tabController.index);
-              // Your code goes here.
-              // To get index of current tab use tabController.index
-            }
-          });
-
-          return Scaffold(
-            appBar: AppBar(
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
               title: Center(
-                child: Text(widget.title),
-              )
-            ),
-            body: ListView.builder(
-              itemBuilder: itemBuilder
+            child: Text(widget.title),
+          )),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(50, 50, 50, 20),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: cart.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          child: ListTile(
+                              title: Text(
+                                  '${cart[index].nom} x${cart[index].count}'),
+                              trailing: Text(
+                                  ' ${(cart[index].count * cart[index].prix).toStringAsFixed(2)} €')),
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+                    child: Text(
+                      'Total: ${cartTotal(cart)} €',
+                      textAlign: TextAlign.end,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 17),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(100, 25, 100, 25),
+                    child: ElevatedButton.icon(
+                      onPressed: handleCart,
+                      icon: const Icon(Icons.euro),
+                      label: const Text("Confirmer la commande"),
+                    ),
+                  ),
+                ],
               ),
-          );
-        },
-      ),
-    );
+            ),
+          ),
+        ),
+        onWillPop: () async {
+          // setState(() {
+          //   args['cart'] = [];
+          // });
+          print('pop !');
+          return true;
+        });
   }
 }

@@ -25,18 +25,40 @@ class _ListeProduitState extends State<ListeProduit> {
       listeProduits[index].qte--;
       cartTotalCount++;
       if (!listeProduits[index].isInCart) {
+        listeProduits[index].isInCart = true;
         cart.add(listeProduits[index]);
       }
     });
     print(
         '${listeProduits[index].nom} count: ${listeProduits[index].count} stock: ${listeProduits[index].qte} ');
     print('cartTotalCount: ${cartTotalCount}');
+    for (var item in cart) {
+      print('cart: ${item.nom}');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     print(args);
+
+    void handleCart() {
+      args['cart'] = cart;
+      if (!cart.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Votre panier est vide',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+            duration: Duration(milliseconds: 2500),
+          ),
+        );
+      } else {
+        Navigator.pushNamed(context, '/cart', arguments: args);
+      }
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -87,11 +109,7 @@ class _ListeProduitState extends State<ListeProduit> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(100, 25, 100, 70),
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            args['cart'] = cart;
-                            Navigator.pushNamed(context, '/cart',
-                                arguments: args);
-                          },
+                          onPressed: handleCart,
                           icon: const Icon(Icons.shopping_cart),
                           label: const Text("Valider votre panier"),
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/page/partiHistory.dart';
 import 'package:mobile/utils/requester.dart';
 import 'package:mobile/widget/card_resa.dart';
 
@@ -75,7 +76,7 @@ class _ReservationsState extends State<Reservations> {
                           ],
                         ),
                       ),
-                      const Center(child: Text('covidPage')),
+                      const Center(child: PartiHistory()),
                       // const Center(child: Text("Covid")),
                     ],
                   ),
@@ -137,8 +138,7 @@ class _ReservationsState extends State<Reservations> {
                           ),
                         ),
                       ),
-                      const Center(child: Text('covidPage')),
-                      // const Center(child: Text("Covid")),
+                      const Center(child: PartiHistory()),
                     ],
                   ),
                 );

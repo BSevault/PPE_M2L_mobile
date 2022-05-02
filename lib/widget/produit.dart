@@ -19,12 +19,12 @@ class Produit extends StatelessWidget {
   final int id;
   final String nom;
   final String description;
-  final int qte;
+  int qte;
   final double prix;
   final int isActive;
   int count = 0;
   bool isInCart = false;
-  final VoidCallback handleTap;
+  final VoidCallback? handleTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,14 @@ class Produit extends StatelessWidget {
           nom,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(description),
+        subtitle: qte > 0 ? Text(description) : const Text('Plus de stock disponible'),
         trailing: Text(
           '${prix.toStringAsFixed(2)} €',
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
         ),
-        tileColor: Theme.of(context).primaryColorLight,
-        onTap: handleTap,
+        tileColor: qte > 0 ? Theme.of(context).primaryColorLight : Colors.grey,
+        onTap: qte > 0 ? handleTap : null,
+        
       ),
     );
   }

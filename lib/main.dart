@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/page/reservations.dart';
 import 'package:mobile/page/gestion_resa.dart';
+import 'page/cart.dart';
 import 'page/home.dart';
 
 void main() => runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Home(title: 'M2L - Gestion des réunions'),
         '/gestion': (context) => GestionResa(),
         '/reservations': (context) => Reservations(title: 'Vos réservations'),
+        '/cart': (context) => Cart(),
       },
     );
   }

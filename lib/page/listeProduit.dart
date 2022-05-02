@@ -22,12 +22,14 @@ class _ListeProduitState extends State<ListeProduit> {
   void addToCart(int index) {
     setState(() {
       listeProduits[index].count++;
+      listeProduits[index].qte--;
       cartTotalCount++;
       if (!listeProduits[index].isInCart) {
         cart.add(listeProduits[index]);
       }
     });
-    print('${listeProduits[index].nom} count: ${listeProduits[index].count} ');
+    print(
+        '${listeProduits[index].nom} count: ${listeProduits[index].count} stock: ${listeProduits[index].qte} ');
     print('cartTotalCount: ${cartTotalCount}');
   }
 
@@ -86,17 +88,9 @@ class _ListeProduitState extends State<ListeProduit> {
                         margin: const EdgeInsets.fromLTRB(100, 25, 100, 70),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            // TODO: postRequest...
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //     content: Text(
-                            //       'Liste d\'appel mis à jour !',
-                            //       textAlign: TextAlign.center,
-                            //       style: TextStyle(fontSize: 18),
-                            //     ),
-                            //     duration: Duration(milliseconds: 2500),
-                            //   ),
-                            // );
+                            args['cart'] = cart;
+                            Navigator.pushNamed(context, '/cart',
+                                arguments: args);
                           },
                           icon: const Icon(Icons.shopping_cart),
                           label: const Text("Valider votre panier"),

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/page/gestion_resa.dart';
 
 import '../utils/requester.dart';
 import '../widget/produit.dart';
@@ -50,8 +51,10 @@ class _CartState extends State<Cart> {
           ),
         );
 
-        Future.delayed(
-            const Duration(milliseconds: 2500), () => {Navigator.pop(context)});
+        Future.delayed(const Duration(milliseconds: 2500),
+            () => {
+              Navigator.pushNamedAndRemoveUntil(context, '/gestion', (Route<dynamic> route) => false,arguments: args),
+            });
       }
     }
 
@@ -67,61 +70,53 @@ class _CartState extends State<Cart> {
       print(item.nom);
     }
 
-    return WillPopScope(
-        child: Scaffold(
-          appBar: AppBar(
-              title: Center(
-            child: Text(widget.title),
-          )),
-          body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(50, 50, 50, 20),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: cart.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: ListTile(
-                              title: Text(
-                                  '${cart[index].nom} x${cart[index].count}'),
-                              trailing: Text(
-                                  ' ${(cart[index].count * cart[index].prix).toStringAsFixed(2)} €')),
-                        );
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
-                    child: Text(
-                      'Total: ${cartTotal(cart)} €',
-                      textAlign: TextAlign.end,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(100, 25, 100, 25),
-                    child: ElevatedButton.icon(
-                      onPressed: handleCart,
-                      icon: const Icon(Icons.euro),
-                      label: const Text("Confirmer la commande"),
-                    ),
-                  ),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+          title: Center(
+        child: Text(widget.title),
+      )),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(50, 50, 50, 20),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: cart.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      child: ListTile(
+                          title:
+                              Text('${cart[index].nom} x${cart[index].count}'),
+                          trailing: Text(
+                              ' ${(cart[index].count * cart[index].prix).toStringAsFixed(2)} €')),
+                    );
+                  },
+                ),
               ),
-            ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+                child: Text(
+                  'Total: ${cartTotal(cart)} €',
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(100, 25, 100, 25),
+                child: ElevatedButton.icon(
+                  onPressed: handleCart,
+                  icon: const Icon(Icons.euro),
+                  label: const Text("Confirmer la commande"),
+                ),
+              ),
+            ],
           ),
         ),
-        onWillPop: () async {
-          // setState(() {
-          //   args['cart'] = [];
-          // });
-          print('pop !');
-          return true;
-        });
+      ),
+    );
   }
 }

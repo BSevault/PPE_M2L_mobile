@@ -61,7 +61,7 @@ class _GestionResaState extends State<GestionResa> {
                       checkParticipants: args['checkParticipants'],
                       userIdResa: args['userIdResa']),
                 ),
-                const Center(child: ListeProduit()),
+                Center(child: ListeProduit()),
                 // const Center(child: Text("Covid")),
               ],
             ),

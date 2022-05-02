@@ -1,6 +1,8 @@
-import 'dart:html';
+// ignore_for_file: avoid_print, file_names
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 
 import '../utils/requester.dart';
 import '../widget/produit.dart';
@@ -31,7 +33,7 @@ class _ListeProduitState extends State<ListeProduit> {
     });
     print(
         '${listeProduits[index].nom} count: ${listeProduits[index].count} stock: ${listeProduits[index].qte} ');
-    print('cartTotalCount: ${cartTotalCount}');
+    print('cartTotalCount: $cartTotalCount');
     for (var item in cart) {
       print('cart: ${item.nom}');
     }
@@ -110,7 +112,19 @@ class _ListeProduitState extends State<ListeProduit> {
                         margin: const EdgeInsets.fromLTRB(100, 25, 100, 70),
                         child: ElevatedButton.icon(
                           onPressed: handleCart,
-                          icon: const Icon(Icons.shopping_cart),
+                          icon: Badge(
+                            badgeColor: const Color(0xFF006875),
+                            position: BadgePosition.topStart(top: -15),
+                            borderSide: const BorderSide(color: Color(0x7C000000)),
+                            badgeContent: Text(
+                              '$cartTotalCount',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: const Icon(Icons.shopping_cart),
+                          ),
                           label: const Text("Valider votre panier"),
                         ),
                       ),

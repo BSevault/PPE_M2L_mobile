@@ -13,8 +13,14 @@ class Reservations extends StatefulWidget {
   State<Reservations> createState() => _ReservationsState();
 }
 
-class _ReservationsState extends State<Reservations> {
+class _ReservationsState extends State<Reservations>
+    with AutomaticKeepAliveClientMixin {
+  // with AutomaticKeepAliveClientMixin pour garder le state entre les tab
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
@@ -163,7 +169,7 @@ class _ReservationsState extends State<Reservations> {
 //   {}
 //     {}
 //     {}
-//     {} 
+//     {}
 //     {}
 //       {}
 //       {}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/page/covid_test.dart';
 import 'package:mobile/page/reservations.dart';
 import 'package:mobile/page/gestion_resa.dart';
 import 'page/cart.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/gestion': (context) => GestionResa(),
         '/reservations': (context) => Reservations(title: 'Vos réservations'),
         '/cart': (context) => Cart(),
-        '/covid': (context) => Text('test'),
+        '/covid': (context) => CovidTest(),
       },
     );
   }

@@ -6,7 +6,8 @@ import 'package:mobile/widget/card_parti_covid.dart';
 
 // ignore: must_be_immutable
 class PartiHistory extends StatefulWidget {
-  const PartiHistory({Key? key}) : super(key: key);
+  PartiHistory({Key? key, this.user}) : super(key: key);
+  Map? user;
 
   @override
   State<PartiHistory> createState() => _PartiHistoryState();
@@ -31,7 +32,8 @@ class _PartiHistoryState extends State<PartiHistory> {
                 children: [
                   ...(resa[0] as List).map(
                     (oneResa) {
-                      return CardPartiCovid(oneResa: oneResa);
+                      return CardPartiCovid(
+                          oneResa: oneResa, user: widget.user);
                     },
                   ),
                 ],

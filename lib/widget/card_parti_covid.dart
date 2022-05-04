@@ -4,27 +4,28 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class CardPartiCovid extends StatelessWidget {
-  CardPartiCovid({Key? key, this.oneResa, this.userIdResa}) : super(key: key);
+  CardPartiCovid({Key? key, this.oneResa, this.user}) : super(key: key);
   Map? oneResa;
-  int? userIdResa;
+  Map? user;
 
   @override
   Widget build(BuildContext context) {
     // print(oneResa);
     initializeDateFormatting('fr_FR', null);
-    var dateResa =
-        DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
+    oneResa?['date_formated'] = DateFormat.yMd('fr_FR').format(
+        DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1)));
 
     Null Function()? onPressFct;
     Color colorCard = Color.fromARGB(185, 224, 94, 84);
     String textCard =
-        'Salle ${oneResa?['nom_salle']} - ${DateFormat.yMd('fr_FR').format(dateResa)} - Admin email: ${oneResa?['email']}';
+        'Salle ${oneResa?['nom_salle']} - ${oneResa?['date_formated']} - Admin email: ${oneResa?['email']}';
 
     if (oneResa?['is_covid'] == 0) {
       colorCard = Color.fromARGB(186, 254, 200, 22);
       onPressFct = () {
         Navigator.pushNamed(context, '/covid', arguments: {
           "oneResa": oneResa,
+          "user": user,
         });
       };
     }

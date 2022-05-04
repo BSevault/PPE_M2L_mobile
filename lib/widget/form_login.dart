@@ -11,8 +11,9 @@ class FormLogin extends StatefulWidget {
 class _FormLoginState extends State<FormLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late String pwd;
-  late String email;
+  // to revert back to empty initial values, remove values here and on forms
+  late String pwd = 'test1';
+  late String email = 'test1@email.com';
   @override
   Widget build(BuildContext context) {
     handleLogin() async {
@@ -22,7 +23,7 @@ class _FormLoginState extends State<FormLogin> {
 
       if (result.isNotEmpty) {
         Navigator.pushNamed(context, '/reservations',
-            arguments: {"userId": result['id']});
+            arguments: {"user": result, "userId": result['id']});
       }
     }
 
@@ -44,6 +45,7 @@ class _FormLoginState extends State<FormLogin> {
               ),
             ),
             TextFormField(
+              initialValue: 'test1@email.com',
               onChanged: (String value) {
                 setState(() {
                   email = value;
@@ -60,6 +62,7 @@ class _FormLoginState extends State<FormLogin> {
               },
             ),
             TextFormField(
+              initialValue: 'test1',
               onChanged: (String value) {
                 setState(() {
                   pwd = value;

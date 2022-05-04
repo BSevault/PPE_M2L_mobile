@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/utils/requester.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class CovidTest extends StatefulWidget {
   const CovidTest({Key? key}) : super(key: key);
@@ -10,22 +13,35 @@ class CovidTest extends StatefulWidget {
 class _CovidTestState extends State<CovidTest> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    var resa = args['oneResa'];
+    var user = args['user'];
+    // dateformating de mes klawi
+    var dateResa = resa['date_formated'].split('/').reversed.join('-');
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Coucou"),
+        title: Text("Despitage COVID Positif"),
       ),
       body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("data"),
+            Text('Nom: ${user['nom']}'),
+            Text('Prenom: ${user['prenom']}'),
+            Text('Date: ${resa['date_formated']}'),
+            Text('Salle: ${resa['nom_salle']}'),
+            Text(
+                'Vous certifiez sur l\'honneur de votre vache avoir été dépisté COVID19.'),
             ElevatedButton.icon(
               onPressed: () {
-                // request HERE !!!!!!
+                Requester.postRequest(
+                    '/flutter/${user['id']}/participations/history',
+                    {'date_resa': dateResa});
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                      'Liste d\'appel mis à jour !',
+                      'Merci, nous envoyons le CDC à votre adresse.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 18),
                     ),
@@ -34,7 +50,7 @@ class _CovidTestState extends State<CovidTest> {
                 );
               },
               icon: const Icon(Icons.send_sharp),
-              label: const Text("Enregistrer"),
+              label: const Text("Valider le signalement"),
             )
           ],
         ),

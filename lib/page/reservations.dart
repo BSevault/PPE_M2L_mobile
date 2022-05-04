@@ -82,7 +82,7 @@ class _ReservationsState extends State<Reservations>
                           ],
                         ),
                       ),
-                      const Center(child: PartiHistory()),
+                      Center(child: PartiHistory(user: args['user'])),
                       // const Center(child: Text("Covid")),
                     ],
                   ),
@@ -144,7 +144,7 @@ class _ReservationsState extends State<Reservations>
                           ),
                         ),
                       ),
-                      const Center(child: PartiHistory()),
+                      Center(child: PartiHistory(user: args['user'])),
                     ],
                   ),
                 );

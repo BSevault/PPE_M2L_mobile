@@ -12,9 +12,8 @@ class CardResa extends StatelessWidget {
   Widget build(BuildContext context) {
     // print(oneResa);
     initializeDateFormatting('fr_FR', null);
-    var dateResa =
-        DateTime.parse(oneResa?['date_resa']).add(const Duration(days: 1));
-    var dateNow = DateTime.now().add(const Duration(days: 1));
+    var dateResa = DateTime.parse(oneResa?['date_resa']);
+    var dateNow = DateTime.now();
     // print(dateNesa);
 
     Null Function()? onPressFct;

@@ -16,7 +16,10 @@ abstract class Requester {
   // static const String _base_url = 'http://192.168.0.49:3001';
 
   // ip chrome
-  static const String _base_url = "http://localhost:3001";
+  // static const String _base_url = "http://localhost:3001";
+
+  // ip lesson sharing
+  static const String _base_url = "https://a.gefor.lnsh.in/api";
 
   // not necessary for now (?)
   static final Map<String, String> _headers = {

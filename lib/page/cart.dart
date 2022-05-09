@@ -19,10 +19,10 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     List<Produit> cart = args['cart'];
+    int userId = args['userIdResa'];
+    int resaId = args['idResa'];
 
     handleCart() async {
-      int userId = args['userIdResa'];
-      int resaId = args['idResa'];
       if (!cart.isNotEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -51,10 +51,17 @@ class _CartState extends State<Cart> {
           ),
         );
 
-        Future.delayed(const Duration(milliseconds: 2500),
+        Future.delayed(
+            const Duration(milliseconds: 2500),
             () => {
-              Navigator.pushNamedAndRemoveUntil(context, '/gestion', (Route<dynamic> route) => false,arguments: args),
-            });
+                  // Navigator.restorablePopAndPushNamed(context, '/gestion', arguments: args),
+                  setState(
+                    () {
+                      // args['cart'] = <Produit>[];
+                    },
+                  ),
+                  Navigator.pop(context, <Produit>[]),
+                });
       }
     }
 
@@ -72,9 +79,8 @@ class _CartState extends State<Cart> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Center(
-        child: Text(widget.title),
-      )),
+        title: Text(widget.title,),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

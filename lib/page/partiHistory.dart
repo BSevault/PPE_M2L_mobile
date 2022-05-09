@@ -42,8 +42,18 @@ class _PartiHistoryState extends State<PartiHistory> {
             ),
           );
         } else {
+          // return const Center(
+          //   child: CircularProgressIndicator(),
+          // );
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: Text(
+                "Vous n'avez participé à aucune réunion.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
           );
         }
       },
